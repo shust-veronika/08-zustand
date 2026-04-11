@@ -1,0 +1,34 @@
+import axios from "axios";
+import { Note } from "@/types/note";
+
+const BASE_URL = "https://notehub-public.goit.study/api";
+
+const instance = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
+  },
+});
+
+// 🔹 Отримати всі нотатки
+export async function fetchNotes(tag?: string): Promise<Note[]> {
+  const res = await instance.get("/notes", {
+    params: tag ? { tag } : {},
+  });
+
+  return res.data;
+}
+
+export async function fetchNoteById(id: string): Promise<Note> {
+  const res = await instance.get(`/notes/${id}`);
+  return res.data;
+}
+
+export async function createNote(note: Omit<Note, "id">): Promise<Note> {
+  const res = await instance.post("/notes", note);
+  return res.data;
+}
+
+export async function deleteNote(id: string): Promise<void> {
+  await instance.delete(`/notes/${id}`);
+}
