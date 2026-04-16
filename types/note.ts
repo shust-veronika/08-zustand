@@ -5,4 +5,3 @@ export interface Note {
   tag?: string;
   createdAt: string;
 }
-export type NewNote = Omit<Note, 'id' | 'createdAt'>;
