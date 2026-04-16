@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useNoteStore } from "@/lib/store/noteStore";
 import { createNote } from "@/lib/api";
 import css from "./NoteForm.module.css";
+import { CreateNoteDTO } from "@/types/note";
 
 export default function NoteForm() {
   const router = useRouter();
@@ -17,16 +18,16 @@ export default function NoteForm() {
   };
 
   const handleSubmit = async (formData: FormData) => {
-    const newNote = {
-      title: formData.get("title") as string,
-      content: formData.get("content") as string,
-      tag: formData.get("tag") as string,
-    };
-
-    await createNote(newNote);
-    clearDraft();
-    router.back();
+  const newNote: CreateNoteDTO = {
+    title: formData.get("title") as string,
+    content: formData.get("content") as string,
+    tag: formData.get("tag") as string,
   };
+
+  await createNote(newNote);
+  clearDraft();
+  router.back();
+};
 
   return (
     <form action={handleSubmit} className={css.form}>
