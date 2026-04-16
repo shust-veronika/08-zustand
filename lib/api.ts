@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Note } from "@/types/note";
+import { Note, CreateNoteDTO } from "@/types/note";
 
 const BASE_URL = "https://notehub-public.goit.study/api";
 
@@ -19,7 +19,7 @@ export async function fetchNoteById(id: string): Promise<Note> {
   return res.data;
 }
 
-export async function createNote(note: Omit<Note, "id">): Promise<Note> {
+export async function createNote(note: CreateNoteDTO): Promise<Note> {
   const res = await instance.post("/notes", note);
   return res.data;
 }

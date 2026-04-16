@@ -5,3 +5,9 @@ export interface Note {
   tag: string;
   createdAt: string;
 }
+
+export type CreateNoteDTO = {
+  title: string;
+  content: string;
+  tag: string;
+};
