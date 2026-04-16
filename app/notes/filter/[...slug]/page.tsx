@@ -22,3 +22,7 @@ export async function generateMetadata({
     },
   };
 }
+
+export default function FilterPage() {
+  return <div>Filter page</div>;
+}
