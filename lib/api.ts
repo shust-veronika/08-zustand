@@ -10,15 +10,10 @@ const instance = axios.create({
   },
 });
 
-// 🔹 Отримати всі нотатки
-export async function fetchNotes(tag?: string): Promise<Note[]> {
-  const res = await instance.get("/notes", {
-    params: tag ? { tag } : {},
-  });
-
+export async function fetchNotes(): Promise<Note[]> {
+  const res = await instance.get('/notes');
   return res.data;
 }
-
 export async function fetchNoteById(id: string): Promise<Note> {
   const res = await instance.get(`/notes/${id}`);
   return res.data;
