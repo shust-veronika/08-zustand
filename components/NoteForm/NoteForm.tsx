@@ -6,7 +6,11 @@ import { createNote } from "@/lib/api";
 import css from "./NoteForm.module.css";
 import { CreateNoteDTO } from "@/types/note";
 
-export default function NoteForm() {
+type NoteFormProps = {
+  onSuccess?: () => void;
+};
+
+export default function NoteForm({ onSuccess }: NoteFormProps) {
   const router = useRouter();
   const { draft, setDraft, clearDraft } = useNoteStore();
 
@@ -18,16 +22,20 @@ export default function NoteForm() {
   };
 
   const handleSubmit = async (formData: FormData) => {
-  const newNote: CreateNoteDTO = {
-    title: formData.get("title") as string,
-    content: formData.get("content") as string,
-    tag: formData.get("tag") as string,
-  };
+    const newNote: CreateNoteDTO = {
+      title: formData.get("title") as string,
+      content: formData.get("content") as string,
+      tag: formData.get("tag") as string,
+    };
 
-  await createNote(newNote);
-  clearDraft();
-  router.back();
-};
+    await createNote(newNote);
+
+    clearDraft();
+
+    onSuccess?.();
+
+    router.back(); 
+  };
 
   return (
     <form action={handleSubmit} className={css.form}>
