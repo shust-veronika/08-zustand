@@ -9,12 +9,20 @@ type Props = {
   notes: Note[];
 };
 
+type NotesResponse = {
+  notes: Note[];
+  totalPages: number;
+};
+
 export default function NotesClient({ notes }: Props) {
-  const { data } = useQuery<Note[]>({
-    queryKey: ['notes'],
-    queryFn: () => fetchNotes(),
-    initialData: notes,
-  });
+ const { data } = useQuery<NotesResponse>({
+  queryKey: ['notes'],
+  queryFn: () => fetchNotes({}),
+  initialData: {
+    notes,
+    totalPages: 1,
+  },
+});
 
   return (
     <main>
