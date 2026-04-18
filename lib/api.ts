@@ -10,28 +10,23 @@ const instance = axios.create({
   },
 });
 
-type FetchNotesParams = {
-  tag?: string;
-  search?: string;
-  page?: number;
-};
-
-export async function fetchNotes({
-  tag,
-  search,
-  page = 1,
-}: FetchNotesParams): Promise<{
+interface NotesResponse {
   notes: Note[];
   totalPages: number;
-}> {
-  const res = await instance.get("/notes", {
+}
+
+export async function fetchNotes(
+  tag?: string,
+  search?: string,
+  page: number = 1
+): Promise<NotesResponse> {
+  const res = await instance.get<NotesResponse>("/notes", {
     params: {
-      ...(tag && { tag }),
-      ...(search && { search }),
+      tag,
+      search,
       page,
     },
   });
-
   return res.data;
 }
 
