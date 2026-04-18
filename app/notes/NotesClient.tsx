@@ -29,7 +29,7 @@ export default function NotesClient({ notes }: Props) {
       <Link href="/notes/action/create">Create note +</Link>
 
       <ul>
-        {data.map((note) => (
+        {data?.notes.map((note) => (
           <li key={note.id}>
             <Link href={`/notes/${note.id}`}>{note.title}</Link>
           </li>
