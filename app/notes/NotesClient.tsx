@@ -12,7 +12,7 @@ type Props = {
 export default function NotesClient({ notes }: Props) {
   const { data } = useQuery<Note[]>({
     queryKey: ['notes'],
-    queryFn: fetchNotes,
+    queryFn: () => fetchNotes(),
     initialData: notes,
   });
 
