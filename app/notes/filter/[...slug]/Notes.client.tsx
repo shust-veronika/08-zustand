@@ -21,11 +21,16 @@ export default function NotesClient({ tag }: NotesClientProps) {
 
   const [debouncedSearch] = useDebounce(search, 500);
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['notes', tag, page, debouncedSearch], 
-    queryFn: () => fetchNotes(tag, debouncedSearch, page),
-    placeholderData: keepPreviousData, 
-  });
+ const { data, isLoading, isError } = useQuery({
+  queryKey: ['notes', tag, page, debouncedSearch],
+  queryFn: () =>
+    fetchNotes({
+      tag,
+      search: debouncedSearch,
+      page,
+    }),
+  placeholderData: keepPreviousData,
+});
 
   const handlePageClick = (newPage: number) => {
     setPage(newPage);
