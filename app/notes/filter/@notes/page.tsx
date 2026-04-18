@@ -20,7 +20,7 @@ export default async function NotesPage({ params }: NotesPageProps) {
 
   return (
     <div className={css.container}>
-      {notes.map((note: Note) => (
+      {notes.notes.map((note: Note) => (
         <div key={note.id} className={css.noteCard}>
           <h3>{note.title}</h3>
           <p>{note.content}</p>
