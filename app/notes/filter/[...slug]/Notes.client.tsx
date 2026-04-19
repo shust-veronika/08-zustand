@@ -5,10 +5,9 @@ import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { fetchNotes } from "@/lib/api";
 
+import Link from "next/link";
 import NoteList from "@/components/NoteList/NoteList";
-import NoteForm from "@/components/NoteForm/NoteForm";
 import SearchBox from "@/components/SearchBox/SearchBox";
-import Modal from "@/components/Modal/Modal";
 import Pagination from "@/components/Pagination/Pagination";
 
 interface NotesClientProps {
@@ -18,7 +17,6 @@ interface NotesClientProps {
 export default function NotesClient({ tag }: NotesClientProps) {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [debouncedSearch] = useDebounce(search, 500);
 
@@ -44,15 +42,9 @@ export default function NotesClient({ tag }: NotesClientProps) {
 
   return (
     <div className="container">
-      <button onClick={() => setIsModalOpen(true)}>
-        Add New Note
-      </button>
-
-      {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
-          <NoteForm onSuccess={() => setIsModalOpen(false)} />
-        </Modal>
-      )}
+      <Link href="/notes/action/create">
+  <button>Add New Note</button>
+</Link>
 
       <SearchBox value={search} onSearch={handleSearch} />
 
